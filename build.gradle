@@ -1,11 +1,8 @@
 plugins {
-    id 'org.springframework.boot' version '2.7.4'
-    id 'io.spring.dependency-management' version '1.0.14.RELEASE'
     id 'java'
-    id 'groovy'
 }
 
-group = 'com.study'
+group = 'com.study.tdd'
 version = '0.0.1-SNAPSHOT'
 sourceCompatibility = '17'
 
@@ -20,16 +17,12 @@ repositories {
 }
 
 dependencies {
-    implementation 'org.springframework.boot:spring-boot-starter-web'
-    //spock
-    implementation platform('org.apache.groovy:groovy-bom:4.0.5')
-    implementation 'org.apache.groovy:groovy'
-    testImplementation platform("org.spockframework:spock-bom:2.3-groovy-4.0")
-    testImplementation "org.spockframework:spock-core"
-    //spock
-    compileOnly 'org.projectlombok:lombok'
-    annotationProcessor 'org.projectlombok:lombok'
-    testImplementation 'org.springframework.boot:spring-boot-starter-test'
+    compileOnly 'org.projectlombok:lombok:1.18.26'
+    annotationProcessor 'org.projectlombok:lombok:1.18.26'
+
+    implementation group: 'org.apache.commons', name: 'commons-lang3', version: '3.12.0'
+
+    testImplementation group: 'org.junit.jupiter', name: 'junit-jupiter-engine', version: '5.9.3'
 }
 
 tasks.named('test') {

@@ -13,12 +13,18 @@ public class ExpiryDateCalculatorTest {
 
     @Test
     void 만원_납부하면_한달_뒤_만료일() {
+        ExpiryDateCalculator cal = new ExpiryDateCalculator();
+
         LocalDate billingDate = LocalDate.of(2023, 5, 1);
         int payAmount = 10_000;
 
-        ExpiryDateCalculator cal = new ExpiryDateCalculator();
         LocalDate expiryDate = cal.calculate(billingDate, payAmount);
-
         assertEquals(LocalDate.of(2023, 6, 1), expiryDate);
+
+        LocalDate billingDate2 = LocalDate.of(2023, 8, 19);
+        int payAmount2 = 10_000;
+
+        LocalDate expiryDate2 = cal.calculate(billingDate2, payAmount2);
+        assertEquals(LocalDate.of(2023, 9, 19), expiryDate2);
     }
 }

@@ -107,4 +107,43 @@ public class ExpiryDateCalculatorTest {
                         .build(),
                 LocalDate.of(2023, 5, 31));
     }
+
+    @Test
+    void 십만원을_납부하면_1년_제공() {
+        assertExpiryDate(PayData.builder()
+                        .billingDate(LocalDate.of(2023, 1, 28))
+                        .payAmount(100_000)
+                        .build(),
+                LocalDate.of(2024, 1, 28));
+    }
+
+    @Test
+    void 십만원_이상을_납부했을때() {
+        assertExpiryDate(PayData.builder()
+                        .billingDate(LocalDate.of(2023, 1, 28))
+                        .payAmount(110_000)
+                        .build(),
+                LocalDate.of(2024, 2, 28));
+
+        assertExpiryDate(PayData.builder()
+                        .billingDate(LocalDate.of(2023, 1, 28))
+                        .payAmount(190_000)
+                        .build(),
+                LocalDate.of(2024, 10, 28));
+
+        assertExpiryDate(PayData.builder()
+                        .billingDate(LocalDate.of(2023, 1, 28))
+                        .payAmount(200_000)
+                        .build(),
+                LocalDate.of(2025, 1, 28));
+    }
+
+    @Test
+    void 십만원_이상_납부했는데_윤달인_2월_29일_납부했을때() {
+        assertExpiryDate(PayData.builder()
+                        .billingDate(LocalDate.of(2024, 2, 29))
+                        .payAmount(100_000)
+                        .build(),
+                LocalDate.of(2025, 2, 28));
+    }
 }

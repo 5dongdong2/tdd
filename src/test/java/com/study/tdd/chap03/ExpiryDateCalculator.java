@@ -4,8 +4,11 @@ import java.time.LocalDate;
 
 public class ExpiryDateCalculator {
     public LocalDate calculateExpiryDate(PayData payData) {
-        if (payData.getFirstBillingDate() != null && payData.getFirstBillingDate().equals(LocalDate.of(2023, 1, 31))) {
-            return LocalDate.of(2023, 3, 31);
+        if (payData.getFirstBillingDate() != null) {
+            LocalDate expectedNextBillingDate = payData.getBillingDate().plusMonths(1);
+            if (payData.getFirstBillingDate().getDayOfMonth() != expectedNextBillingDate.getDayOfMonth()) {
+                return expectedNextBillingDate.withDayOfMonth(payData.getFirstBillingDate().getDayOfMonth());
+            }
         }
         return payData.getBillingDate().plusMonths(1);
     }

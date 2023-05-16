@@ -1,19 +1,24 @@
 package com.study.tdd.chap07;
 
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
+import static org.junit.jupiter.api.Assertions.*;
+
 public class UserRegisterTest {
 
+    //fake repository
     private final MemoryUserRepository memoryUserRepository = new MemoryUserRepository();
+    //stub checker
     private final StubWeakPasswordChecker stubWeakPasswordChecker = new StubWeakPasswordChecker();
+    //spy email notifier
+    private final SpyEmailNotifier spyEmailNotifier = new SpyEmailNotifier();
     private UserRegister userRegister;
 
     @BeforeEach
     void setUp() {
-        userRegister = new UserRegister(stubWeakPasswordChecker, memoryUserRepository);
+        userRegister = new UserRegister(stubWeakPasswordChecker, memoryUserRepository, spyEmailNotifier);
     }
 
     @DisplayName("약한 암호면 가입 실패")
@@ -21,7 +26,7 @@ public class UserRegisterTest {
     void weakPassword() {
         stubWeakPasswordChecker.setWeak(true); //암호가 약하다고 응답하도록 설정
 
-        Assertions.assertThrows(WeakPasswordException.class, () -> {
+        assertThrows(WeakPasswordException.class, () -> {
             userRegister.register("id", "pw", "email");
         });
     }
@@ -31,7 +36,7 @@ public class UserRegisterTest {
     void sameIdExists() {
         memoryUserRepository.save(new User("id", "pw", "eamil@email.com"));
 
-        Assertions.assertThrows(DuplicatedIdException.class, () -> {
+        assertThrows(DuplicatedIdException.class, () -> {
             userRegister.register("id", "pw", "eamil@email.com");
         });
     }
@@ -42,7 +47,16 @@ public class UserRegisterTest {
         userRegister.register("id", "pw", "email");
 
         User user = memoryUserRepository.findById("id");
-        Assertions.assertEquals("id", user.getId());
-        Assertions.assertEquals("email", user.getEmail());
+        assertEquals("id", user.getId());
+        assertEquals("email", user.getEmail());
+    }
+
+    @DisplayName("가입하면 메일을 전송")
+    @Test
+    void whenRegisterThenSendEmail() {
+        userRegister.register("id", "pw", "email@email.com");
+
+        assertTrue(spyEmailNotifier.isCalled());
+        assertEquals("email@email.com", spyEmailNotifier.getEmail());
     }
 }

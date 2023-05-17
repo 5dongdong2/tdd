@@ -1,4 +1,4 @@
-package com.study.tdd.chap07;
+package com.study.tdd.chap07.notifier;
 
 public class SpyEmailNotifier implements EmailNotifier {
 

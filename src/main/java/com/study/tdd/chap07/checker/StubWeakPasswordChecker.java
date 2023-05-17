@@ -1,4 +1,4 @@
-package com.study.tdd.chap07;
+package com.study.tdd.chap07.checker;
 
 public class StubWeakPasswordChecker implements WeakPasswordChecker {
     private boolean weak;

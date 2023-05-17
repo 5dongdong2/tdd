@@ -1,4 +1,6 @@
-package com.study.tdd.chap07;
+package com.study.tdd.chap07.repository;
+
+import com.study.tdd.chap07.model.User;
 
 import java.util.HashMap;
 import java.util.Map;

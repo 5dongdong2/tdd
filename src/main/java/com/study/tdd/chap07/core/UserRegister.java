@@ -1,4 +1,11 @@
-package com.study.tdd.chap07;
+package com.study.tdd.chap07.core;
+
+import com.study.tdd.chap07.checker.WeakPasswordChecker;
+import com.study.tdd.chap07.exception.DuplicatedIdException;
+import com.study.tdd.chap07.exception.WeakPasswordException;
+import com.study.tdd.chap07.model.User;
+import com.study.tdd.chap07.notifier.EmailNotifier;
+import com.study.tdd.chap07.repository.UserRepository;
 
 import java.util.Objects;
 

@@ -1,4 +1,4 @@
-package com.study.tdd.chap07;
+package com.study.tdd.chap07.model;
 
 public class User {
     private final String id;

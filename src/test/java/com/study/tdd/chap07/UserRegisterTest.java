@@ -1,5 +1,12 @@
 package com.study.tdd.chap07;
 
+import com.study.tdd.chap07.checker.StubWeakPasswordChecker;
+import com.study.tdd.chap07.core.UserRegister;
+import com.study.tdd.chap07.exception.DuplicatedIdException;
+import com.study.tdd.chap07.exception.WeakPasswordException;
+import com.study.tdd.chap07.model.User;
+import com.study.tdd.chap07.notifier.SpyEmailNotifier;
+import com.study.tdd.chap07.repository.MemoryUserRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;

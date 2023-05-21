@@ -10,6 +10,8 @@ configurations {
     compileOnly {
         extendsFrom annotationProcessor
     }
+    testCompileOnly.extendsFrom compileOnly
+    testAnnotationProcessor.extendsFrom annotationProcessor
 }
 
 repositories {
